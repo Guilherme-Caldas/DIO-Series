@@ -9,7 +9,7 @@ namespace DIO.Series
 		private string Titulo { get; set; }
 		private string Descricao { get; set; }
 		private int Ano { get; set; }
-        private bool Excluido {get; set;}
+        private bool Excluido { get; set; }
 
         // Métodos
 		public Serie(int id, Genero genero, string titulo, string descricao, int ano)
@@ -24,7 +24,6 @@ namespace DIO.Series
 
         public override string ToString()
 		{
-			// Environment.NewLine https://docs.microsoft.com/en-us/dotnet/api/system.environment.newline?view=netcore-3.1
             string retorno = "";
             retorno += "Gênero: " + this.Genero + Environment.NewLine;
             retorno += "Titulo: " + this.Titulo + Environment.NewLine;
@@ -33,7 +32,14 @@ namespace DIO.Series
             retorno += "Excluido: " + this.Excluido;
 			return retorno;
 		}
-
+		public int retornaAno()
+		{
+			return this.Ano;
+		}
+		public string retornaDescricao()
+		{
+			return this.Descricao;
+		}
         public string retornaTitulo()
 		{
 			return this.Titulo;
@@ -47,7 +53,8 @@ namespace DIO.Series
 		{
 			return this.Excluido;
 		}
-        public void Excluir() {
+        public void Excluir() 
+		{
             this.Excluido = true;
         }
     }

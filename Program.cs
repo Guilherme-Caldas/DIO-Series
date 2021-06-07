@@ -44,14 +44,13 @@ namespace DIO.Series
 						break;
 
 					case 7:
-						{ 
 						Console.WriteLine();
 						Console.WriteLine("Obrigado por utilizar nossos serviços.");
 						Console.WriteLine();
 						Console.WriteLine("Saindo da DIO Séries");
+						Console.WriteLine();
+						Environment.Exit(0);
 						break;
-						}
-						
 				}
 			}
         }
@@ -59,14 +58,18 @@ namespace DIO.Series
         private static void ExcluirSerie()
 		{
 			Console.Write("Digite o id da série: ");
+			Console.WriteLine();
 			int indiceSerie = int.Parse(Console.ReadLine());
 
 			repositorio.Exclui(indiceSerie);
+			Console.Write("Série excluída. ");
+			Console.WriteLine();
 		}
 
         private static void VisualizarSerie()
 		{
 			Console.Write("Digite o id da série: ");
+			Console.WriteLine();
 			int indiceSerie = int.Parse(Console.ReadLine());
 
 			var serie = repositorio.RetornaPorId(indiceSerie);
@@ -77,13 +80,12 @@ namespace DIO.Series
         private static void AtualizarSerie()
 		{
 			Console.Write("Digite o id da série: ");
+			Console.WriteLine();
 			int indiceSerie = int.Parse(Console.ReadLine());
 
-			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getvalues?view=netcore-3.1
-			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getname?view=netcore-3.1
 			foreach (int i in Enum.GetValues(typeof(Genero)))
 			{
-				Console.WriteLine("{0}-{1}", i, Enum.GetName(typeof(Genero), i));
+				Console.WriteLine("{0} - {1}", i, Enum.GetName(typeof(Genero), i));
 			}
 			Console.Write("Digite o gênero entre as opções acima: ");
 			int entradaGenero = int.Parse(Console.ReadLine());
@@ -104,10 +106,13 @@ namespace DIO.Series
 										descricao: entradaDescricao);
 
 			repositorio.Atualiza(indiceSerie, atualizaSerie);
+			Console.Write("Série atualizada com sucesso. ");
+			Console.WriteLine();
 		}
         private static void ListarSeries()
 		{
 			Console.WriteLine("Listar séries");
+			Console.WriteLine();
 
 			var lista = repositorio.Lista();
 
@@ -120,21 +125,26 @@ namespace DIO.Series
 			foreach (var serie in lista)
 			{
                 var excluido = serie.retornaExcluido();
-                
-				Console.WriteLine("#ID {0}: - {1} {2}", serie.retornaId(), serie.retornaTitulo(), (excluido ? "*Excluído*" : ""));
+                Console.WriteLine();
+				Console.WriteLine("Identificação: {0} \nTítulo: {1} \nDescrição: {2} \nAno: {3} {4} ",  serie.retornaId() + 1, 
+																										serie.retornaTitulo(), 
+																										serie.retornaDescricao(), 
+																										serie.retornaAno(),																																																																											
+																										(excluido ? "*Excluído*" : ""));
+				Console.WriteLine();
 			}
 		}
 
         private static void InserirSerie()
 		{
 			Console.WriteLine("Inserir nova série");
+			Console.WriteLine();
 
-			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getvalues?view=netcore-3.1
-			// https://docs.microsoft.com/pt-br/dotnet/api/system.enum.getname?view=netcore-3.1
 			foreach (int i in Enum.GetValues(typeof(Genero)))
 			{
-				Console.WriteLine("{0}-{1}", i, Enum.GetName(typeof(Genero), i));
+				Console.WriteLine("{0} - {1}", i, Enum.GetName(typeof(Genero), i));
 			}
+			Console.WriteLine();
 			Console.Write("Digite o gênero entre as opções acima: ");
 			int entradaGenero = int.Parse(Console.ReadLine());
 
@@ -147,20 +157,22 @@ namespace DIO.Series
 			Console.Write("Digite a Descrição da Série: ");
 			string entradaDescricao = Console.ReadLine();
 
-			Serie novaSerie = new Serie(id: repositorio.ProximoId(),
-										genero: (Genero)entradaGenero,
+			Serie novaSerie = new Serie(id: repositorio.ProximoId(), 
+										genero: (Genero)entradaGenero, 
 										titulo: entradaTitulo,
 										ano: entradaAno,
 										descricao: entradaDescricao);
 
 			repositorio.Insere(novaSerie);
+			Console.WriteLine();
+			Console.Write("Série adicionada com sucesso. ");
+			Console.WriteLine();
 		}
 
         private static int ObterOpcaoUsuario()
 		{
 			Console.WriteLine();
-			Console.WriteLine("DIO Séries a seu dispor!!!");
-			Console.WriteLine();
+			Console.WriteLine("Seja Bem Vindo à DIO Séries. O melhor lugar para assistir suas séries favoritas!");
 			Console.WriteLine("Informe a opção desejada:");
 			Console.WriteLine();
 
@@ -174,10 +186,11 @@ namespace DIO.Series
 			Console.WriteLine();
 
 			int opcaoUsuario = Int32.Parse(Console.ReadLine());
+			Console.WriteLine();
 
 			while (opcaoUsuario < 1 || opcaoUsuario > 7)
             {
-                Console.WriteLine(" Número inválido. Digite novamente: ");
+                Console.WriteLine("Número inválido. Digite novamente: ");
                 opcaoUsuario = Int32.Parse(Console.ReadLine());
             }
 
